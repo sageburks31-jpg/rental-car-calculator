@@ -5,11 +5,13 @@ import java.util.*;
 public class Main {
 
     static Scanner scanner=new Scanner(System.in);
-
     static String pickupDate=" ";
+    static boolean hasMistake=false;
+
     static int rentalDays=-1;
     static int age=-1;
     static double surcharge=.3;
+
 
     static double electronicTollAmount=3.95;
     static boolean hasElectronicToll=false;
@@ -29,33 +31,33 @@ public class Main {
     }
 
     public static void printRentalDisplay(){
-
         if (!hasElectronicToll) {electronicTollAmount=0;}
-
         if (!hasAnswerGPS) {GPSAmount=0;}
 
         if (!hasRoadAssist) {roadAssistAmount=0;}
-
-        if (age<25) {surcharge=0;}
+        if (age>=25) {surcharge=0;}
+        String strSurcharge=String.format("%.0f",surcharge*100)+"%";
 
         System.out.printf("""
                         
                         *==== total car rental cost ====*
                         
+                        rental date: %s
                         basic car rental: 29.99 per days(%d)
-                        electronic toll: %f
-                        GPS: %f
-                        roadside assistance: %f
-                        underage supercharge percent: %f
-                        """,rentalDays,electronicTollAmount,GPSAmount,roadAssistAmount,surcharge*10);
-
-        if(surcharge==0){surcharge=1;}
-
-        System.out.println("total cost: "+((29.99*rentalDays)+electronicTollAmount+GPSAmount+roadAssistAmount)*surcharge);
+                        electronic toll: %.2f
+                        GPS: %.2f
+                        roadside assistance: %.2f
+                        supercharge percentage: %s
+                        """,pickupDate,rentalDays,electronicTollAmount,GPSAmount,roadAssistAmount,strSurcharge);
+        if(surcharge==0) {surcharge=1;}
+        double superTotal=29.99*surcharge;
+        double finalTotal=((superTotal*rentalDays)+electronicTollAmount+GPSAmount+roadAssistAmount);
+        System.out.printf("total cost: %.2f",finalTotal);
 
     }
 
     public static void questionUser(){
+
         if (pickupDate.equals(" ")) {
             System.out.print("enter date of vehicle pickup here ->: ");
             pickupDate = scanner.nextLine();
@@ -66,9 +68,11 @@ public class Main {
             rentalDays = scanner.nextInt();
         }
 
-        if (age>0){
+        if (17>age || 17==age){
             System.out.print("enter your age here ->: ");
             age = scanner.nextInt();
+
+            if (age<18) {mistakeAnswerCheck(false);}
         }
 
         if (!hasAnswerToll) {
@@ -88,10 +92,9 @@ public class Main {
 
     }
 
-
     public static void ansStringCheck(String Answer, int checkResKey) {
-
         if (Answer.equals("y") || Answer.equals("n")) {
+
             if (checkResKey == 3) {
                 hasRoadAssist = Answer.equals("y");
                 hasAnswerAssist = true;
@@ -104,11 +107,15 @@ public class Main {
                 hasElectronicToll = Answer.equals("y");
                 hasAnswerToll = true;
             }
-        } else {mistakeAnswerCheck();}
+        }
+        else {mistakeAnswerCheck(true);}
     }
 
-    public static void mistakeAnswerCheck(){
-        System.out.println("Please enter a valid answer");
+    public static void mistakeAnswerCheck(boolean is_str){
+        if (is_str){System.out.println("Please enter a valid answer");}
+        else {System.out.println("Please enter a valid age");}
+
+        hasMistake=false;
         questionUser();
     }
 

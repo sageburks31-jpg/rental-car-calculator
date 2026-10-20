@@ -63,6 +63,11 @@ public class Main {
             rentalDays = scanner.nextInt();
         }
 
+        if (age>0){
+            System.out.print("enter your age here ->: ");
+            age = scanner.nextInt();
+        }
+
         if (!hasAnswerToll) {
             System.out.print("enter (y)es if you want electronic toll tags? (y/n): ");
             ansStringCheck(scanner.nextLine().toLowerCase(),1);
@@ -78,10 +83,6 @@ public class Main {
             ansStringCheck(scanner.nextLine().toLowerCase(),3);
         }
 
-        if (age>0){
-            System.out.print("enter your age here ->: ");
-            age = scanner.nextInt();
-        }
     }
 
 

@@ -63,6 +63,7 @@ public class Main {
             rentalDays = scanner.nextInt();
         }
 
+
         if (age>0){
             System.out.print("enter your age here ->: ");
             age = scanner.nextInt();

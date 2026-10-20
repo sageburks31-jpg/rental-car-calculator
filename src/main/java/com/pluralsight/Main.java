@@ -47,8 +47,7 @@ public class Main {
                 hasElectronicToll = Answer.equals("y");
                 hasAnswerToll=true;
             } else {
-                System.out.println("Please enter a valid answer");
-                questionUser();
+                mistakeAnswerCheck();
             }
             Answer = "blank";
         }
@@ -61,8 +60,7 @@ public class Main {
                 hasGPS = Answer.equals("y");
                 hasAnswerGPS=true;
             } else {
-                System.out.println("Please enter a valid answer");
-                questionUser();
+                mistakeAnswerCheck();
             }
             Answer = "blank";
         }
@@ -75,8 +73,7 @@ public class Main {
                 hasRoadAssist = Answer.equals("y");
                 hasAnswerAssist=true;
             } else {
-                System.out.println("Please enter a valid answer");
-                questionUser();
+                mistakeAnswerCheck();
             }
         }
 
@@ -84,7 +81,11 @@ public class Main {
             System.out.print("enter your age here ->: ");
             age = scanner.nextInt();
         }
+    }
 
+    public static void mistakeAnswerCheck(){
+        System.out.println("Please enter a valid answer");
+        questionUser();
     }
 
 }

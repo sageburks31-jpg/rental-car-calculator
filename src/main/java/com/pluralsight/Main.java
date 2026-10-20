@@ -104,9 +104,7 @@ public class Main {
                 hasElectronicToll = Answer.equals("y");
                 hasAnswerToll = true;
             }
-        } else {
-            mistakeAnswerCheck();
-        }
+        } else {mistakeAnswerCheck();}
     }
 
     public static void mistakeAnswerCheck(){

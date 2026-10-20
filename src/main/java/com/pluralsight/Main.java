@@ -30,26 +30,29 @@ public class Main {
 
     public static void printRentalDisplay(){
 
-        System.out.println("*==== total car rental cost ====*");
-        System.out.println("basic car rental: 29.99 per days("+rentalDays+")");
+        if (!hasElectronicToll) {electronicTollAmount=0;}
 
-        if (hasElectronicToll) {
-            System.out.println("electronic toll: " + electronicTollAmount);
-        } else {electronicTollAmount=0;}
+        if (!hasAnswerGPS) {GPSAmount=0;}
 
-        if (hasAnswerGPS) {
-            System.out.println("GPS: " + GPSAmount);
-        } else {GPSAmount=0;}
+        if (!hasRoadAssist) {roadAssistAmount=0;}
 
-        if (hasRoadAssist) {
-            System.out.println("roadside assistance: " + roadAssistAmount);
-        } else {roadAssistAmount=0;}
+        if (age<25) {surcharge=0;}
 
-        if (age<25){
-            System.out.println("underage driver surcharge: 30%");
-        } else {surcharge=1;}
+        System.out.printf("""
+                        
+                        *==== total car rental cost ====*
+                        
+                        basic car rental: 29.99 per days(%d)
+                        electronic toll: %f
+                        GPS: %f
+                        roadside assistance: %f
+                        underage supercharge percent: %f
+                        """,rentalDays,electronicTollAmount,GPSAmount,roadAssistAmount,surcharge*10);
 
-        System.out.println("total cost: "+((29.99*rentalDays)+electronicTollAmount+GPSAmount+roadAssistAmount)*.3);
+        if(surcharge==0){surcharge=1;}
+
+        System.out.println("total cost: "+((29.99*rentalDays)+electronicTollAmount+GPSAmount+roadAssistAmount)*surcharge);
+
     }
 
     public static void questionUser(){

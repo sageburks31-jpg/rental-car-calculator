@@ -56,8 +56,10 @@ public class Main {
                 strSurcharge);
         if (surcharge == 0) {surcharge = 1;}
 
-        double superTotal = 29.99 * surcharge;
-        double finalTotal = ((superTotal * rentalDays) + electronicTollAmount + GPSAmount + roadAssistAmount);
+        double subTotal = 29.99 * surcharge;
+
+        double superTotal = 29.99 + subTotal;
+        double finalTotal = ((superTotal + electronicTollAmount + GPSAmount + roadAssistAmount) * rentalDays);
         System.out.printf("total cost: %.2f", finalTotal);
     }
 
